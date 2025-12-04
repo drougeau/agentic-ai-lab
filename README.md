@@ -56,6 +56,7 @@ agentic-ai-lab/
 
 ---
 ## 🚀 Getting Started
+
 ### Step 1: Repository Setup
 
 ```powershell
@@ -63,25 +64,53 @@ agentic-ai-lab/
 git clone https://github.com/dhangerkapil/agentic-ai-lab.git
 cd agentic-ai-lab
 
-# Verify Python version
+# Verify Python version (if not using DevContainer)
 python --version  # Should be 3.10 or higher
 ```
 
-### Step 2: Python Environment Configuration
+### Step 2: Choose Your Development Environment
 
-**Using Standard venv**
+You have two options for setting up your development environment:
+
+#### Option A: DevContainer (Recommended for Docker Users) 🐳
+
+If you have **Docker Desktop** installed, use the DevContainer for a fully configured environment:
+
+1. **Prerequisites:**
+   - Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+   - Install [Visual Studio Code](https://code.visualstudio.com/)
+   - Install the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+2. **Open in DevContainer:**
+   - Open the repository folder in VS Code
+   - When prompted, click **"Reopen in Container"** or
+   - Press `F1` → Select **"Dev Containers: Reopen in Container"**
+
+3. **What's Included:**
+   - ✅ Python 3.12 pre-configured
+   - ✅ All dependencies from `requirements.txt` automatically installed
+   - ✅ VS Code extensions (Python, Jupyter, Pylance, Azure)
+   - ✅ Azure CLI pre-installed
+   - ✅ Consistent environment across all machines
+
+> **💡 Tip:** The DevContainer automatically installs all packages with locked versions. No manual setup required!
+
+#### Option B: Local Python Environment (Standard venv)
+
+If you prefer a local setup or don't have Docker:
+
 ```powershell
 # Create and activate virtual environment
 python -m venv .venv
 .\.venv\Scripts\activate
-```
 
-### Step 3: Install Dependencies
-
-```powershell
-# Install core dependencies
+# Install all dependencies with locked versions for reproducibility
 pip install -r requirements.txt
 ```
+
+> **💡 Note:** This project uses pip-tools for dependency management to ensure consistent installations across all environments. All required packages (including pip-tools) are automatically installed from `requirements.txt`.
+> 
+> **📝 For Maintainers:** See [README_DEPENDENCY_MANAGEMENT.md](README_DEPENDENCY_MANAGEMENT.md) for instructions on updating dependencies.
 
 ### Step 4: Azure AI Foundry Setup
 
@@ -104,8 +133,19 @@ pip install -r requirements.txt
    | **Default Project Name** | Keep the default project as it is. |
 
    - Keep other settings for your resource as default, read and accept the conditions (as applicable), and then select **Review + create**.
+
+2. **Assign Azure AI User Role**
    
-2. **Deploy Required Models & Services**
+   **Important:** Developers and lab attendees must be assigned the **Azure AI User** role to interact with the AI Foundry project:
+   
+   - **Recommended:** Assign at the **Project level**
+   - **Alternative:** If encountering permission issues, assign at the **Foundry Resource level**
+   
+   This role provides the necessary permissions to deploy models, create agents, and execute AI operations.
+   
+   For detailed guidance, follow the [Role-based access control for Microsoft Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/rbac-azure-ai-foundry?view=foundry-classic) documentation.
+   
+3. **Deploy Required Models & Services**
    
    | Model Type | Recommended Models | Purpose |
    |------------|-------------------|---------|
@@ -117,22 +157,27 @@ pip install -r requirements.txt
       - Search for the models in the table above , select a model, click confirm and Deploy and connect
        <img src="images/deploy-models.png" width="75%"/>
 
-3. **Configure an Azure Search Service**
+4. **Configure an Azure Search Service**
    - Create an Azure AI Search resource in Azure
    - Connect this resource to your AI Foundry project
       - Navigate to your AI Foundry project → Management Center → Connected Resources → Add Connection → Select Azure AI Search
       <img src="images/foundry-connection.png" width="75%"/>
 
-4. **Configure Grounding with Bing Search**
+5. **Configure Grounding with Bing Search**
    - Create a new Grounding with Bing Search resource in Azure
    - Connect this resource to your AI Foundry project
       - Navigate to your AI Foundry project → Management Center → Connected Resources → Add Connection → Select Grounding with Bing Search
 
-5. **Create Content Understanding Resource**
+6. **Connect Application Insights for Observability**
+   - Connect an Application Insights resource to your Foundry project for monitoring and observability
+   - Follow the detailed guide: [Monitor applications with Application Insights](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/monitor-applications?view=foundry-classic)
+   - This enables tracking of agent performance, model usage, and troubleshooting
+
+7. **Create Content Understanding Resource**
    - Create an Azure AI Content Understanding multi-service resource following the [official documentation](https://learn.microsoft.com/en-us/azure/ai-services/content-understanding/how-to/create-multi-service-resource)
    - Ensure the resource is created in a supported region (westus, swedencentral, australiaeast)
   
-6. **Configure Environment Variables**
+8. **Configure Environment Variables**
    - Copy `.env.example` to `.env` in the root directory and update values accordingly
    - This repository expects the `.env` file to be in the root directory, if you want to store it elsewhere or name it something else, update the `load_dotenv()` calls in notebooks
    - Many of the Environment Variables needed can be found in the Overview tab of your Azure AI Foundry project or the connected resources in the Management Center tab
@@ -311,30 +356,39 @@ The **Microsoft Agent Framework** is an open-source development kit that unifies
 ### 📋 System Requirements
 
 **Essential Components:**
-- 🐍 [Python 3.10+](https://www.python.org/downloads/) - Latest stable version
-- ☁️ [Azure Subscription](https://ai.azure.com) - Active subscription with Azure AI Foundry access
 - 💻 [Visual Studio Code](https://code.visualstudio.com/) - Recommended development environment
-- 🛠️ [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) - For resource management
+- ☁️ [Azure Subscription](https://ai.azure.com) - Active subscription with Azure AI Foundry access
 - 📦 [Git](https://git-scm.com/downloads) - Version control
+
+**Choose ONE of the following:**
+- 🐳 **Option A (Recommended):** [Docker Desktop](https://www.docker.com/products/docker-desktop/) + [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- 🐍 **Option B:** [Python 3.10+](https://www.python.org/downloads/) + [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 **Knowledge Prerequisites:**
 - ✅ Intermediate Python programming skills
 - ✅ Basic understanding of machine learning concepts
 - ✅ Familiarity with REST APIs and web services
-- ✅ Experience with Azure services (recommended)
-
 ### 🔧 Development Environment Setup
 
-**Visual Studio Code (Recommended)**
+**Option A: DevContainer (Automated)**
+- All extensions and tools are automatically configured when you open the project in a DevContainer
+- No manual setup required!
+
+**Option B: Manual Setup**
+
+Visual Studio Code Extensions:
 ```powershell
 # Install required extensions
 code --install-extension ms-python.python
 code --install-extension ms-toolsai.jupyter
+code --install-extension ms-python.vscode-pylance
 ```
 
-**Alternative: JupyterLab**
+Alternative: JupyterLab
 ```powershell
 # Launch JupyterLab
+jupyter lab
+```aunch JupyterLab
 jupyter lab
 ```
 

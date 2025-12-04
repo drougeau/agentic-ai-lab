@@ -130,6 +130,9 @@ sample/frontend/.env
 
 *.lock
 
+# Temporary requirements exports (pip-tools generates requirements.txt)
+requirements_exported.txt
+
 # Security and Certificate Files
 *.pem
 *.key
