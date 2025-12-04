@@ -35,7 +35,7 @@ You should expect to spend about 30-45 minutes running the notebook. Execution t
 
    ```env
    # Azure AI Project Connection String
-   PROJECT_CONNECTION_STRING="https://your-aifoundry-endpoint-name.services.ai.azure.com/"
+   AZURE_AI_PROJECT_ENDPOINT="https://your-aifoundry-endpoint-name.services.ai.azure.com/"
    MODEL_DEPLOYMENT_NAME="gpt-4o-mini"
    MODEL_API_VERSION="2024-12-01-preview"
    TENANT_ID="your-tenant-id"
