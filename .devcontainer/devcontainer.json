@@ -20,7 +20,7 @@
 		}
 	},
 
-	"postCreateCommand": "pip install --no-cache-dir -r requirements.txt",
+	"postCreateCommand": "grep -v -E 'pywin32|pywinpty' requirements.txt > requirements-linux.txt && pip install --no-cache-dir -r requirements-linux.txt",
 
 	"forwardPorts": [8888, 5000],
 
