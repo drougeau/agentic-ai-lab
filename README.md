@@ -72,7 +72,24 @@ python --version  # Should be 3.10 or higher
 
 You have two options for setting up your development environment:
 
-#### Option A: DevContainer (Recommended for Docker Users) 🐳
+#### Option A: Local Python Environment (Standard venv)
+
+If you prefer a local setup or don't have Docker:
+
+```powershell
+# Create and activate virtual environment
+python -m venv .venv
+.\.venv\Scripts\activate
+
+# Install all dependencies with locked versions for reproducibility
+pip install -r requirements.txt
+```
+
+> **💡 Note:** This project uses pip-tools for dependency management to ensure consistent installations across all environments. All required packages (including pip-tools) are automatically installed from `requirements.txt`.
+> 
+> **📝 For Maintainers:** See [README_DEPENDENCY_MANAGEMENT.md](README_DEPENDENCY_MANAGEMENT.md) for instructions on updating dependencies.
+
+#### Option B: DevContainer (Recommended for Docker Users) 🐳
 
 If you have **Docker Desktop** installed, use the DevContainer for a fully configured environment:
 
@@ -94,23 +111,6 @@ If you have **Docker Desktop** installed, use the DevContainer for a fully confi
    - ✅ Consistent environment across all machines
 
 > **💡 Tip:** The DevContainer automatically installs all packages with locked versions. No manual setup required!
-
-#### Option B: Local Python Environment (Standard venv)
-
-If you prefer a local setup or don't have Docker:
-
-```powershell
-# Create and activate virtual environment
-python -m venv .venv
-.\.venv\Scripts\activate
-
-# Install all dependencies with locked versions for reproducibility
-pip install -r requirements.txt
-```
-
-> **💡 Note:** This project uses pip-tools for dependency management to ensure consistent installations across all environments. All required packages (including pip-tools) are automatically installed from `requirements.txt`.
-> 
-> **📝 For Maintainers:** See [README_DEPENDENCY_MANAGEMENT.md](README_DEPENDENCY_MANAGEMENT.md) for instructions on updating dependencies.
 
 ### Step 4: Azure AI Foundry Setup
 
@@ -361,8 +361,8 @@ The **Microsoft Agent Framework** is an open-source development kit that unifies
 - 📦 [Git](https://git-scm.com/downloads) - Version control
 
 **Choose ONE of the following:**
-- 🐳 **Option A (Recommended):** [Docker Desktop](https://www.docker.com/products/docker-desktop/) + [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-- 🐍 **Option B:** [Python 3.10+](https://www.python.org/downloads/) + [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+- 🐍 **Option A:** [Python 3.10+](https://www.python.org/downloads/) + [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+- 🐳 **Option B (Docker Users):** [Docker Desktop](https://www.docker.com/products/docker-desktop/) + [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 **Knowledge Prerequisites:**
 - ✅ Intermediate Python programming skills
